@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IDepartment, DeptServiceImpl>();
 builder.Services.AddScoped<IDoctor, DoctorServiceImpl>();
 builder.Services.AddSingleton<DapperContext>();
+
 builder.Services.AddHttpClient("userByEmail", x =>
 {
     x.BaseAddress = new Uri("https://localhost:7032/");

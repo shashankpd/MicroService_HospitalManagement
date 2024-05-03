@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace HospitalManagementService.Service
 {
-    public class DoctorServiceImpl(DapperContext context) : IDoctor
+    public class DoctorServiceImpl(IHttpClientFactory httpClientFactory, DapperContext context) : IDoctor
     {
         public object? CreateDoctor(DoctorRequest request)
         {
@@ -101,7 +101,17 @@ namespace HospitalManagementService.Service
             string query = "DELETE FROM Doctor WHERE DoctorId = @DoctorId;";
             return context.CreateConnection().Execute(query, new { DoctorId = doctorId });
         }
-      
+        public UserObject getUserById(int doctorId)
+        {
+            var httpclient = httpClientFactory.CreateClient("userByEmail");
+            var responce = httpclient.GetAsync($"GetUserById?UserId={doctorId}").Result;
+            if (responce.IsSuccessStatusCode)
+            {
+                return responce.Content.ReadFromJsonAsync<UserObject>().Result;
+            }
+            throw new Exception("UserNotFound Create User FIRST OE TRY DIFFERENT EMAIL ID");
+        }
+
         public List<Doctor>? GetDoctorsBySpecialization(string specialization)
         {
             string query = "SELECT * FROM Doctor WHERE Specialization = @Specialization;";

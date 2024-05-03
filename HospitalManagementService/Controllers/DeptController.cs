@@ -34,7 +34,7 @@ namespace HospitalManagementService.Controllers
                 // Check if department creation was successful
                 if (details == null)
                 {
-                    return StatusCode(500);
+                    return BadRequest();
                 }
 
                 var response = new ResponseModel<int>
@@ -53,7 +53,7 @@ namespace HospitalManagementService.Controllers
                     Message = ex.Message,
                     Data = null
                 };
-                return StatusCode(500, response);
+                return BadRequest();
             }
         }
 
@@ -83,7 +83,7 @@ namespace HospitalManagementService.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseModel<string>
+                return BadRequest( new ResponseModel<string>
                 {
                     Success = false,
                     Message = ex.Message,
@@ -118,7 +118,7 @@ namespace HospitalManagementService.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseModel<string>
+                return BadRequest(new ResponseModel<string>
                 {
                     Success = false,
                     Message = ex.Message,
@@ -168,7 +168,7 @@ namespace HospitalManagementService.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResponseModel<string>
+                return BadRequest(new ResponseModel<string>
                 {
                     Success = false,
                     Message = $"An error occurred: {ex.Message}",
@@ -213,7 +213,7 @@ namespace HospitalManagementService.Controllers
                     Success = false,
                     Message = ex.Message
                 };
-                return StatusCode(500, response);
+                return BadRequest();
             }
             catch (RepositoryException ex)
             {
@@ -222,7 +222,7 @@ namespace HospitalManagementService.Controllers
                     Success = false,
                     Message = ex.Message
                 };
-                return StatusCode(500, response);
+                return BadRequest();
             }
             catch (Exception ex)
             {
@@ -231,7 +231,7 @@ namespace HospitalManagementService.Controllers
                     Success = false,
                     Message = "An unexpected error occurred: " + ex.Message
                 };
-                return StatusCode(500, response);
+                return BadRequest();
             }
         }
     }

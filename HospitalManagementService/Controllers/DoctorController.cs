@@ -13,7 +13,7 @@ namespace HospitalManagementService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
     public class DoctorController : ControllerBase
     {
         private readonly IDoctor _service;
@@ -54,7 +54,7 @@ namespace HospitalManagementService.Controllers
             }
         }
 
-        [HttpGet("{doctorId}")]
+        [HttpGet("Getdoctorbyid{doctorId}")]
         public IActionResult GetDoctorById(int doctorId)
         {
             try
@@ -70,11 +70,7 @@ namespace HospitalManagementService.Controllers
                     });
                 }
 
-                return Ok(new ResponseModel<Doctor>
-                {
-                    Message = "Doctor retrieved successfully",
-                    Data = details
-                });
+                return Ok(details);
             }
             catch (Exception ex)
             {
